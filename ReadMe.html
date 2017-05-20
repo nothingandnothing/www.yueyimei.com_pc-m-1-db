@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>ReadMe</title></head><body><article class="markdown-body"><h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>说明</h1>
+<p><a href="http://www.yueyimei.com">www.yueyimei.com</a>和m.yueyimei.com使用dedecms系统,双后台，共用一个数据库。</p>
+<h2 id="1dedewwwyueyimeicommyueyimeicom"><a name="user-content-1dedewwwyueyimeicommyueyimeicom" href="#1dedewwwyueyimeicommyueyimeicom" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1、使用dede分别搭建www.yueyimei.com和m.yueyimei.com后台</h2>
+<h3 id="myueyimeicom"><a name="user-content-myueyimeicom" href="#myueyimeicom" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>m.yueyimei.com焦点图制作</h3>
+<p>关于焦点图文件主要有:<br />
+<em>/dede/focus_add.php;<br />
+</em>/dede/focus_edit.php;<br />
+<em>/dede/focus_main.php;<br />
+</em>/dede/focus_type.php;<br />
+和<br />
+<em>/dede/templets/focus_add.htm;<br />
+</em>/dede/templets/focus_edit.htm;<br />
+<em>/dede/templets/focus_main.htm;<br />
+</em>/dede/templets/focus_type.htm;<br />
+在数据库中添加表：<br />
+focus和focustype;<br />
+将php文件指向的数据库名指向已经添加的focus和focustype表;<br />
+在/dede/inc/inc_menu_module.php 辅助插件中添加</p>
+<p>$plusset</p>
+<p><m:item name='焦点图' link='focus_main.php' rank='10' target='main' /></p>
+<p>添加焦点图并链接到focus_main.php;<br />
+在/include/extend.func.php文件中加入代码：<br />
+<pre><code><br />
+function focuswz($id) {<br />
+global $dsql ;<br />
+if($id==0) {<br />
+$string =&rdquo;无效参数&rdquo;;<br />
+} else {<br />
+$row1 = $dsql-&gt;GetOne(&ldquo;SELECT catid FROM #@__focus where id=$id&rdquo;);<br />
+}<br />
+return str_replace(&lsquo;,&rsquo;, &lsquo;|&rsquo;, $row1[&lsquo;catid&rsquo;]);;<br />
+}//don<br />
+</code></pre></p></article></body></html>
